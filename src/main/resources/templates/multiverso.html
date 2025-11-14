@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Multiverso</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!--    <link rel="stylesheet" th:href="@{/css/estilos.css}">-->
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="container my-4">
@@ -50,7 +50,7 @@
 
         // Rick and Morty
         let rickPage = 1;
-        function loadRick(page){
+        function getRick(page){
             $.ajax({
                 method: "GET", dataType: "json",
                 url: `https://rickandmortyapi.com/api/character?page=${page}`
@@ -58,26 +58,26 @@
                 $("#rick-section").empty();
                 data.results.forEach(car => {
                     $("#rick-section").append(`
-          <div class="col-md-3 col-sm-6 mb-3">
-            <div class="card shadow-sm" data-api="rick" data-id="${car.id}">
-              <img src="${car.image}" class="card-img-top" alt="${car.name}">
-              <div class="card-body">
-                <h6 class="card-title">${car.name}</h6>
-                <span class="badge bg-info">Rick and Morty</span>
-              </div>
-            </div>
-          </div>
-        `);
+                      <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="card shadow-sm" data-api="rick" data-id="${car.id}">
+                          <img src="${car.image}" class="card-img-top" alt="${car.name}">
+                          <div class="card-body">
+                            <h6 class="card-title">${car.name}</h6>
+                            <span class="badge bg-info">Rick and Morty</span>
+                          </div>
+                        </div>
+                      </div>
+                    `);
                 });
             });
         }
-        loadRick(rickPage);
-        $("#rick-prev").click(()=>{ if(rickPage>1){ rickPage--; loadRick(rickPage);} });
-        $("#rick-next").click(()=>{ rickPage++; loadRick(rickPage); });
+        getRick(rickPage);
+        $("#rick-prev").click(()=>{ if(rickPage>1){ rickPage--; getRick(rickPage);} });
+        $("#rick-next").click(()=>{ rickPage++; getRick(rickPage); });
 
         // Pokémon
         let pokeOffset = 0, pokeLimit = 20;
-        function loadPokemon(offset){
+        function getPoke(offset){
             $.ajax({
                 method: "GET", dataType: "json",
                 url: `https://pokeapi.co/api/v2/pokemon?limit=${pokeLimit}&offset=${offset}`
@@ -103,9 +103,9 @@
                 });
             });
         }
-        loadPokemon(pokeOffset);
-        $("#poke-prev").click(()=>{ if(pokeOffset>=pokeLimit){ pokeOffset-=pokeLimit; loadPokemon(pokeOffset);} });
-        $("#poke-next").click(()=>{ pokeOffset+=pokeLimit; loadPokemon(pokeOffset); });
+        getPoke(pokeOffset);
+        $("#poke-prev").click(()=>{ if(pokeOffset>=pokeLimit){ pokeOffset-=pokeLimit; getPoke(pokeOffset);} });
+        $("#poke-next").click(()=>{ pokeOffset+=pokeLimit; getPoke(pokeOffset); });
 
         // Modal con datos organizados
         $(document).on("click",".card",function(){
