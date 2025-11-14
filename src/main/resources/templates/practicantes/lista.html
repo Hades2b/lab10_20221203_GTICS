@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Practicantes</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="container">
 <h2 class="mb-3">Practicantes</h2>
@@ -20,7 +22,7 @@
                 method: "GET", dataType: "json",
                 url: `http://localhost:8080/practicantes/api`
             }).done(function(data){
-                data.results.forEach(pra => {
+                data.forEach(pra => {
                     $("#practi-section").append(`
                       <div class="col-md-3 col-sm-6 mb-3" data-id="${pra.id}">
                         <div class="card shadow-sm">
